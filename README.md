@@ -1,6 +1,8 @@
 # Places Map Search App
 
-This React Native application allows users to search for places using Google Maps Places API, display locations on a map, maintain search history, and select places from history.
+This React Native application allows users to search for places using Google
+Maps Places API, display locations on a map, maintain search history, and
+select places from history.
 
 ## Features
 
@@ -11,8 +13,6 @@ This React Native application allows users to search for places using Google Map
 
 ## Prerequisites
 
-- Node.js and npm or yarn
-- Expo CLI
 - Google Maps API key
 
 ## Setup
@@ -21,13 +21,13 @@ This React Native application allows users to search for places using Google Map
 
 ```bash
 git clone <repository-url>
-cd places-map-app
+cd rn-assessment
 ```
 
 2. Install dependencies
 
 ```bash
-yarn install
+yarn
 ```
 
 3. Configure Google Maps API Key
@@ -37,49 +37,10 @@ You need to obtain a Google Maps API key with the following APIs enabled:
 - Places API
 - Geocoding API
 
-After obtaining the key, update it in `src/components/PlaceSearch.tsx`:
-
-```typescript
-const GOOGLE_PLACES_API_KEY = 'YOUR_GOOGLE_API_KEY';
-```
-
-For a better approach in a real-world application, create a .env file in the project root:
+After obtaining the key, update it in .env
 
 ```
-GOOGLE_MAPS_API_KEY=your_api_key_here
-```
-
-Then install the necessary package:
-
-```bash
-yarn add react-native-dotenv
-```
-
-Update your babel.config.js to include:
-
-```javascript
-module.exports = function(api) {
-  api.cache(true);
-  return {
-    presets: ['babel-preset-expo'],
-    plugins: [
-      ["module:react-native-dotenv", {
-        "moduleName": "@env",
-        "path": ".env",
-        "blacklist": null,
-        "whitelist": null,
-        "safe": false,
-        "allowUndefined": true
-      }]
-    ]
-  };
-}
-```
-
-And import the API key in your component:
-
-```typescript
-import { GOOGLE_MAPS_API_KEY } from '@env';
+EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
 ```
 
 4. Start the development server
@@ -91,7 +52,7 @@ yarn start
 ## Project Structure
 
 - `/src/app/`: Main application screens
-- `/src/components/`: Reusable components (PlaceSearch, SearchHistory)
+- `/src/components/`: Reusable components
 - `/src/stores/`: State management with Zustand
 - `/src/services/`: Services for handling location
 - `/src/types/`: TypeScript type definitions
@@ -99,26 +60,44 @@ yarn start
 
 ## Technologies Used
 
+- TypeScript
 - React Native / Expo
 - Google Maps & Places API
 - Zustand for state management
 - MMKV for persistent storage
-- TypeScript
+
+## Building (Android)
+
+Use eas to build, follow the setup instructions [here](https://docs.expo.dev/build/setup/)
+
+```
+npm install -g eas-cli
+eas login
+eas build:configure
+```
+
+Then make a development build like so:
+
+```
+eas build --profile development --platform android --local
+```
+
+You can then proceed to install the apk file on a real device or an emulator using adb
+
+```
+adb install build-1743602399942.apk # example!
+```
 
 ## Development
 
 To run linting:
 
 ```bash
-npm run lint
+yarn lint
 ```
 
 To run tests:
 
 ```bash
-npm run test
+yarn test
 ```
-
-## License
-
-This project is licensed under the MIT License.

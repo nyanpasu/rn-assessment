@@ -5,7 +5,6 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Animated,
 } from 'react-native';
 import { usePlacesStore } from '../stores/placesStore';
 import type { Place } from '../types';
@@ -17,7 +16,7 @@ interface SearchHistoryProps {
 
 export default function SearchHistory({ visible, onClose }: SearchHistoryProps) {
   const { searchHistory, selectPlace } = usePlacesStore();
-  
+
   const handlePlaceSelect = (place: Place) => {
     selectPlace(place);
     onClose();
@@ -39,7 +38,7 @@ export default function SearchHistory({ visible, onClose }: SearchHistoryProps) 
           <Text style={styles.closeButton}>Close</Text>
         </TouchableOpacity>
       </View>
-      
+
       {searchHistory.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>No search history yet</Text>

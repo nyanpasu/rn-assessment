@@ -1,5 +1,4 @@
 import { MMKV } from 'react-native-mmkv';
-import { useMMKVBoolean } from 'react-native-mmkv';
 import type { StateStorage } from "zustand/middleware";
 
 export const storage = new MMKV();
@@ -21,32 +20,4 @@ export const zustandMMKVStorage: StateStorage = {
   removeItem: (name) => {
     return storage.delete(name);
   },
-};
-
-/**
- * Export storage with wrappers to guarantee type safety & key consistency.
- */
-export const mmkvStorage = {
-  hasOnboarded: {
-    key: "hasOnboarded",
-    defaultValue: false,
-    get: () =>
-      storage.getBoolean(mmkvStorage.hasOnboarded.key) ??
-      mmkvStorage.hasOnboarded.defaultValue,
-    set: (value: boolean) => storage.set(mmkvStorage.hasOnboarded.key, value),
-  },
-} as const;
-
-/**
- * Export the storage in hook format so it can be used reactively.
- */
-export const useMMKVStorage = () => {
-  const hasOnboarded = useMMKVBoolean(mmkvStorage.hasOnboarded.key, storage);
-
-  return {
-    hasOnboarded: {
-      get: () => hasOnboarded[0] ?? mmkvStorage.hasOnboarded.defaultValue,
-      set: hasOnboarded[1],
-    },
-  };
 };

@@ -8,21 +8,21 @@ export const usePlacesStore = create<PlacesState>()(
     (set) => ({
       searchHistory: [],
       selectedPlace: null,
-      
+
       addToHistory: (place: Place) => set((state) => {
         // Filter out duplicate places by ID
         const filteredHistory = state.searchHistory.filter(
           (item) => item.id !== place.id
         );
-        
+
         // Add new place to the beginning of history
-        return { 
+        return {
           searchHistory: [place, ...filteredHistory].slice(0, 20) // Keep only 20 most recent
         };
       }),
-      
+
       selectPlace: (place: Place | null) => set({ selectedPlace: place }),
-      
+
       clearHistory: () => set({ searchHistory: [] }),
     }),
     {

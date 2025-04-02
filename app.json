@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.minkyu.hwang.rnassessment"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,10 +19,14 @@
       },
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyChi1hKlSE-atbxfgClb3kOyn_6a_fu0RQ",
-        },
+          "apiKey": "AIzaSyChi1hKlSE-atbxfgClb3kOyn_6a_fu0RQ"
+        }
       },
-      "package": "com.minkyu.hwang.rnassessment"
+      "package": "com.minkyu.hwang.rnassessment",
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -33,7 +38,7 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
-        },
+        }
       ],
       "expo-router",
       [

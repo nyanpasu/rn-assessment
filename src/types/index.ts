@@ -6,6 +6,14 @@ export interface Place {
     latitude: number;
     longitude: number;
   };
+  phoneNumber?: string;
+  website?: string;
+  rating?: number;
+  openingHours?: {
+    isOpen?: boolean;
+    weekdayText?: string[];
+  };
+  photos?: string[];
   timestamp: number;
 }
 

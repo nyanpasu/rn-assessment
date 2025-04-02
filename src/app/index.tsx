@@ -4,6 +4,7 @@ import MapView, { PROVIDER_GOOGLE, Marker, type Region } from 'react-native-maps
 import { usePlacesStore } from '../stores/placesStore';
 import PlaceSearch from '../components/PlaceSearch';
 import SearchHistory from '../components/SearchHistory';
+import PlaceDetails from '../components/PlaceDetails';
 import { getCurrentLocation, DEFAULT_LOCATION } from '../services/locationService';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -16,6 +17,7 @@ export default function MapScreen() {
     longitudeDelta: 0.0421,
   });
   const [showHistory, setShowHistory] = useState(false);
+  const [showPlaceDetails, setShowPlaceDetails] = useState(false);
   const [isMapReady, setIsMapReady] = useState(false);
 
   // Initialize map with user's location
@@ -38,7 +40,7 @@ export default function MapScreen() {
     }
   }, [isMapReady]);
 
-  // Update map when a place is selected
+  // Update map and show details when a place is selected
   useEffect(() => {
     if (selectedPlace && mapRef.current && isMapReady) {
       const newRegion = {
@@ -47,8 +49,11 @@ export default function MapScreen() {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       };
-      
+
       mapRef.current.animateToRegion(newRegion, 1000);
+      setShowPlaceDetails(true);
+    } else {
+      setShowPlaceDetails(false);
     }
   }, [selectedPlace, isMapReady]);
 
@@ -60,7 +65,7 @@ export default function MapScreen() {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       };
-      
+
       mapRef.current.animateToRegion(newRegion, 1000);
     }
   };
@@ -98,6 +103,15 @@ export default function MapScreen() {
       </TouchableOpacity>
 
       <SearchHistory visible={showHistory} onClose={() => setShowHistory(false)} />
+
+      {selectedPlace && showPlaceDetails && (
+        <PlaceDetails
+          place={selectedPlace}
+          onClose={() => {
+            setShowPlaceDetails(false);
+          }}
+        />
+      )}
     </View>
   );
 }
@@ -125,6 +139,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    zIndex: 1,
   },
   historyButtonText: {
     color: 'white',

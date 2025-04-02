@@ -15,7 +15,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyChi1hKlSE-atbxfgClb3kOyn_6a_fu0RQ",
+        },
+      },
+      "package": "com.minkyu.hwang.rnassessment"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +42,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6ca15cb1-c63c-40dc-9c0e-6e8213eb8efc"
+      }
     }
   }
 }

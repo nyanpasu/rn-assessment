@@ -1,50 +1,124 @@
-# Welcome to your Expo app 👋
+# Places Map Search App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This React Native application allows users to search for places using Google Maps Places API, display locations on a map, maintain search history, and select places from history.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Google Maps Place Search**: Search for places using the Google Maps Places API with real-time suggestions
+- **Display on Map**: View selected places on a Google Map with relevant details
+- **Search History**: Maintains a record of searched locations with persistence
+- **Select from History**: Select places from the history to display on the map
 
-   ```bash
-   npm install
-   ```
+## Prerequisites
 
-2. Start the app
+- Node.js and npm or yarn
+- Expo CLI
+- Google Maps API key
 
-   ```bash
-    npx expo start
-   ```
+## Setup
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Clone the repository
 
 ```bash
-npm run reset-project
+git clone <repository-url>
+cd places-map-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies
 
-## Learn more
+```bash
+yarn install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Configure Google Maps API Key
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+You need to obtain a Google Maps API key with the following APIs enabled:
+- Maps SDK for Android/iOS
+- Places API
+- Geocoding API
 
-## Join the community
+After obtaining the key, update it in `src/components/PlaceSearch.tsx`:
 
-Join our community of developers creating universal apps.
+```typescript
+const GOOGLE_PLACES_API_KEY = 'YOUR_GOOGLE_API_KEY';
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+For a better approach in a real-world application, create a .env file in the project root:
+
+```
+GOOGLE_MAPS_API_KEY=your_api_key_here
+```
+
+Then install the necessary package:
+
+```bash
+yarn add react-native-dotenv
+```
+
+Update your babel.config.js to include:
+
+```javascript
+module.exports = function(api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: [
+      ["module:react-native-dotenv", {
+        "moduleName": "@env",
+        "path": ".env",
+        "blacklist": null,
+        "whitelist": null,
+        "safe": false,
+        "allowUndefined": true
+      }]
+    ]
+  };
+}
+```
+
+And import the API key in your component:
+
+```typescript
+import { GOOGLE_MAPS_API_KEY } from '@env';
+```
+
+4. Start the development server
+
+```bash
+yarn start
+```
+
+## Project Structure
+
+- `/src/app/`: Main application screens
+- `/src/components/`: Reusable components (PlaceSearch, SearchHistory)
+- `/src/stores/`: State management with Zustand
+- `/src/services/`: Services for handling location
+- `/src/types/`: TypeScript type definitions
+- `/src/util/`: Utility functions and storage helpers
+
+## Technologies Used
+
+- React Native / Expo
+- Google Maps & Places API
+- Zustand for state management
+- MMKV for persistent storage
+- TypeScript
+
+## Development
+
+To run linting:
+
+```bash
+npm run lint
+```
+
+To run tests:
+
+```bash
+npm run test
+```
+
+## License
+
+This project is licensed under the MIT License.
